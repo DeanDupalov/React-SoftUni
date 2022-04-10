@@ -1,15 +1,14 @@
 import './App.css';
-import TodList from './components/TodoList'
+import TodoList from './components/TodoList'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Todo App</h1>
+        <h1>Counter App</h1>
       </header>
       <main>
-        <h2>Tasks</h2>
-        <TodList />
+      <TodoList></TodoList>
       </main>
 
       <footer>
