@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
+import uniqid from 'uniqid';
 import TodoItem from './TodoItem'
 
 export default function TodoList() {
@@ -17,7 +18,7 @@ export default function TodoList() {
 
     const addTaskHandler = (e) => {
         let task = {
-            id: tasks.length + 1,
+            id: uniqid(),
             text: e.target.value
         };
 
@@ -29,6 +30,10 @@ export default function TodoList() {
         e.target.value = ''
     };
 
+    const deleteTodoItemHandler = (id) => {
+       setTasks(oldTasks => oldTasks.filter(task => task.id != id))
+    }
+
     return (
         <>
             <label htmlFor="task-name">
@@ -36,7 +41,8 @@ export default function TodoList() {
                 <input type="text" id='task-name' onBlur={addTaskHandler} />
             </label>
             <ul>
-                {tasks.map(t => <TodoItem key={t.id} task={t} />)}
+                {tasks.map(t => <TodoItem key={t.id} task={t} deleteHandler={deleteTodoItemHandler} />)}
+                {/* {tasks.map(t => <TodoItem key={t.id} task={t} deleteHandler={() => deleteTodoItemHandler(t.id)} />)} */}
             </ul>
         </>
     )
