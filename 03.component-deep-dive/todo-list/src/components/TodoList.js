@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import uniqid from 'uniqid';
-import TodoItem from './TodoItem'
+import TodoItem from './TodoItem';
+
+const API_URL = 'http://localhost:3030/jsonstore'
 
 export default function TodoList() {
-    const [tasks, setTasks] = useState([
-        { id: 1, text: 'Clean my room' },
-        { id: 2, text: 'Workout' },
-        { id: 3, text: 'Wash the dishes' }
-    ]);
+    const [tasks, setTasks] = useState([]);
 
-
-    const listTasks = tasks.map((t, i) => <li key={i}>{t}</li>)
 
     useEffect(() => {
-        console.log('Mounted');
+        fetch(`${API_URL}/todos`)
+            .then(res => res.json())
+            .then(result => {
+                setTasks(Object.values(result))
+            })
     }, []);
 
     const addTaskHandler = (e) => {
@@ -30,8 +30,24 @@ export default function TodoList() {
         e.target.value = ''
     };
 
-    const deleteTodoItemHandler = (id) => {
-       setTasks(oldTasks => oldTasks.filter(task => task.id != id))
+    const deleteTodoItemHandler = (e, id) => {
+        e.stopPropagation();
+        setTasks(oldTasks => oldTasks.filter(task => task.id !== id))
+    }
+    const toggleTaskItemClickHandler = (id) => {
+        setTasks(oldTasks => {
+            let selectedTask = oldTasks.find(x => x.id === id);
+            let selectedIndex = oldTasks.findIndex(x => x.id === id)
+            let toggledTask = { ...selectedTask, isDone: !selectedTask.isDone };
+
+
+            return [
+                ...oldTasks.slice(0, selectedIndex),
+                toggledTask,
+                ...oldTasks.slice(selectedIndex + 1)
+            ]
+
+        });
     }
 
     return (
@@ -41,7 +57,14 @@ export default function TodoList() {
                 <input type="text" id='task-name' onBlur={addTaskHandler} />
             </label>
             <ul>
-                {tasks.map(t => <TodoItem key={t.id} task={t} deleteHandler={deleteTodoItemHandler} />)}
+                {tasks.map(task =>
+                    <TodoItem
+                        key={task.id}
+                        task={task}
+                        deleteHandler={deleteTodoItemHandler}
+                        crossOnCLick={toggleTaskItemClickHandler}
+                    />
+                )}
                 {/* {tasks.map(t => <TodoItem key={t.id} task={t} deleteHandler={() => deleteTodoItemHandler(t.id)} />)} */}
             </ul>
         </>
