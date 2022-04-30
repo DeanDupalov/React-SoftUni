@@ -3,7 +3,7 @@ import * as petService from "../services/petsService"
 import { useEffect, useState } from "react";
 import PetCard from "./PetCard";
 
-function MyPets() {
+function PetList() {
     const [pets, setPets] = useState([]);
 
     useEffect(() => {
@@ -14,17 +14,19 @@ function MyPets() {
             })
     }, [])
     return (
-        <section id="my-pets-page" className="my-pets">
-            <h1>My Pets</h1>
+        <>
+            {pets.length > 0
+                ? (
+                    <ul className="other-pets-list">
+                        {pets.map(pet => <PetCard key={pet._id} pet={pet} />)}
+                    </ul>
+                )
+                : <p className="no-pets">No pets in database!</p>
+            }
 
-            <ul className="my-pets-list">
-                {pets.map(pet => <PetCard key={pet._id} pet={pet} />)}
-            </ul>
-
-            <p className="no-pets">No pets in database!</p>
-        </section>
+        </>
     )
 
 }
 
-export default MyPets;
+export default PetList;

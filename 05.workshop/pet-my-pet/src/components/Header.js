@@ -5,7 +5,7 @@ function Header() {
         <header id="site-header">
                 <nav className="navbar">
                     <section className="navbar-dashboard">
-                        <Link to="/">Dashboard</Link>
+                        <Link to="/dashboard">Dashboard</Link>
 
                         <div id="guest">
                             <Link to="/login" className="button" >Login</Link>
