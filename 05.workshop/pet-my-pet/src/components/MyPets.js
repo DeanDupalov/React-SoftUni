@@ -9,7 +9,7 @@ function MyPets() {
     useEffect(() => {
         petService.getAll()
             .then(result => {
-                console.log(result);
+                
                 setPets(result);
             })
     }, [])

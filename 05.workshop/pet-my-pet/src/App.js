@@ -7,8 +7,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Create from "./components/Create";
 import MyPets from "./components/MyPets";
-
-
+import Details from "./components/Details";
 
 
 function App() {
@@ -25,6 +24,7 @@ function App() {
                     <Route path="/register" element={<Register />} />
                     <Route path="/create" element={<Create />} />
                     <Route path="/my-pets" element={<MyPets />} />
+                    <Route path="/details/:id" element={<Details />} />
                 </Routes>
 
             </main>
