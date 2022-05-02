@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import uniqid from 'uniqid';
 import TodoItem from './TodoItem';
+import HobbyLIst from './HobbyList';
 
 const API_URL = 'http://localhost:3030/jsonstore'
 
@@ -67,6 +68,8 @@ export default function TodoList() {
                 )}
                 {/* {tasks.map(t => <TodoItem key={t.id} task={t} deleteHandler={() => deleteTodoItemHandler(t.id)} />)} */}
             </ul>
+
+            <HobbyLIst title="My Hobbies">Test Children </ HobbyLIst>
         </>
     )
 }
