@@ -1,4 +1,16 @@
+import { useEffect, useState } from "react"
+
 function Create() {
+    const [types, setTypes] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3030/jsonstore/types')
+            .then(res => res.json())
+            .then(res => {
+                setTypes(Object.values(res));
+            })
+    })
+
     return (
         <section id="create-page" className="create">
             <form id="create-form" action="" method="">
@@ -23,14 +35,18 @@ function Create() {
                         </span>
                     </p>
                     <p className="field">
+                        <label htmlFor="category">CATEGORY</label>
+                        <span className="input">
+                            <select id="category" name="category">
+                                {types.map(x =><option key={x._id}  value={x.name}>{x.name}</option>)}
+                            </select>
+                        </span>
+                    </p>
+                    <p className="field">
                         <label htmlFor="type">Type</label>
                         <span className="input">
                             <select id="type" name="type">
-                                <option value="cat">Cat</option>
-                                <option value="dog">Dog</option>
-                                <option value="parrot">Parrot</option>
-                                <option value="reptile">Reptile</option>
-                                <option value="other">Other</option>
+                                {types.map(x =><option key={x._id}  value={x.name}>{x.name}</option>)}
                             </select>
                         </span>
                     </p>

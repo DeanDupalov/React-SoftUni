@@ -1,11 +1,13 @@
 import TodoList from './components/TodoList'
+import CharacterList from './components/CharacterLists';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <h1>Todo List</h1>
-      <TodoList />
+      <h1>SW List</h1>
+      
+      <CharacterList />
     </div>
   );
 }
